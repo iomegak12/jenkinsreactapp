@@ -13,6 +13,13 @@ pipeline {
         input(message: 'Is Test Successful, and ready and Continue?', ok: 'Yes and Continue to Publish and Execute')
       }
     }
+    stage('Deliver and Stop') {
+      steps {
+        sh 'bash ./jenkins/scripts/deliver.sh'
+        input(message: 'Have you tested React Application?', ok: 'Yes, I\'ve successfully and continue to stop the server')
+        sh 'bash ./jenkins/scripts/kill.sh'
+      }
+    }
   }
   environment {
     CI = 'true'
